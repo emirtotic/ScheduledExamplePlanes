@@ -32,4 +32,13 @@ public class PlaneController {
         return new ResponseEntity<>("Plane deleted successfully!", HttpStatus.OK);
     }
 
+    @GetMapping("/all/{companyName}")
+    public ResponseEntity<List<Plane>> getAllPlanesByCompany(@PathVariable(name = "companyName") String companyName) {
+        return new ResponseEntity<>(planeService.findAllPlanesByCompany(companyName), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Plane> findPlaneById(@PathVariable(name = "id") int id) {
+        return new ResponseEntity<>(planeService.findPlaneById(id), HttpStatus.OK);
+    }
 }

@@ -10,4 +10,8 @@ public interface PlaneService {
     Plane createPlane(Plane plane);
     void deletePlane(int planeId);
 
+    Plane findPlaneById(int id);
+
+    List<Plane> findAllPlanesByCompany(String companyName);
+
 }

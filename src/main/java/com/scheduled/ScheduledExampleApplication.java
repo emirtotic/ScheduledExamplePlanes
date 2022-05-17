@@ -21,8 +21,7 @@ public class ScheduledExampleApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ScheduledExampleApplication.class, args);
-        log.info("This is simple crud application with Scheduler. When you start the app, create plane first and play with it but be careful");
-        log.info("Database will be erased after 20 minutes.");
+        welcomeText();
     }
 
     @Scheduled(initialDelay = 2000L, fixedDelayString = "${executing.delay}")
@@ -44,6 +43,15 @@ public class ScheduledExampleApplication {
         log.warn("Ok, enough playing. We are deleting all planes from db.");
         planeRepository.deleteAll();
     }
+
+    private static void welcomeText() {
+        log.info("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
+        log.info("*              This is simple crud application with Scheduler.                      *");
+        log.info("*    When you start the app, create plane first and play with it but be careful.    *");
+        log.warn("*                Database will be erased after 20 minutes.                          *");
+        log.info("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
+    }
+
 }
 
 @Configuration

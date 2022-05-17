@@ -7,9 +7,9 @@ import com.scheduled.repository.PlaneRepository;
 import com.scheduled.service.PlaneService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,9 +38,27 @@ public class PlaneServiceImpl implements PlaneService {
 
     @Override
     public void deletePlane(int planeId) {
-        Plane plane = planeRepository.findById(planeId)
+        planeRepository.findById(planeId)
                 .orElseThrow(() -> new PlaneNotFoundException(planeId));
-
+        log.info("Plane deleted successfully.");
         planeRepository.deleteById(planeId);
+    }
+
+    @Override
+    public Plane findPlaneById(int id) {
+        return planeRepository.findById(id).orElseThrow(() -> new PlaneNotFoundException(id));
+    }
+
+    @Override
+    public List<Plane> findAllPlanesByCompany(String companyName) {
+
+        List<Plane> planes = planeRepository.findAllByCompanyNameContainsIgnoreCase(companyName);
+
+        if (planes.size() > 0) {
+            log.info("Found {} planes of {} company.", planes.size(), companyName);
+            return planes;
+        }
+        log.info("There are no {} planes!", companyName);
+        return new ArrayList<>();
     }
 }
